@@ -5,14 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bosque Virtual | EcoLegado Alfombras</title>
     <style>
-        :root {
-            --primary-color: #2c5e3b;
-            --secondary-color: #52b788;
-            --bg-color: #fefae0;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-        }
-
+        :root { --primary-color: #2c5e3b; --secondary-color: #52b788; --bg-color: #fefae0; --card-bg: #ffffff; --text-color: #333333; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-color); }
         header { background-color: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
         nav { display: flex; justify-content: center; gap: 2rem; background: #23492e; padding: 1rem; }
@@ -29,13 +22,11 @@
         .tree-card h3 { margin-top: 0; color: var(--primary-color); }
         .hint-click { font-size: 0.85rem; color: var(--secondary-color); font-weight: bold; margin-top: 1rem; display: block; }
 
-        /* Modal y Galería de Historial */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; padding: 1rem; }
         .modal-content { background-color: #fff; padding: 2rem; border-radius: 14px; width: 100%; max-width: 600px; position: relative; max-height: 90vh; overflow-y: auto; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #aaa; }
         .close-btn:hover { color: var(--primary-color); }
         
-        /* Contenedor de la línea de tiempo de fotos */
         .historial-galeria { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; margin-top: 1rem; scroll-behavior: smooth; }
         .foto-item { min-width: 220px; text-align: center; background: #f9f9f9; border-radius: 8px; padding: 10px; border: 1px solid #eee; }
         .foto-item img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; }
@@ -52,7 +43,7 @@
 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="index.html#tienda">Colección</a>
+        <a href="index.html#simulador">Haz tu Pedido</a>
         <a href="arboles.html">Bosque Virtual</a>
     </nav>
 
@@ -82,30 +73,16 @@
     <footer><p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p></footer>
 
     <script>
-        // Base de datos simulada con historial de fotos en arreglo (array)
-        const arboles = [
-            { 
-                id: "ECO-001", 
-                protector: "Familia Gómez Ruiz", 
-                especie: "Roble Nativo Andino", 
-                estado: "Creciendo fuerte", 
-                ubicacion: "4.6097° N, 74.0817° W (Reserva Bosque Alto)",
-                historialFotos: [
-                    { fecha: "Octubre 2026 - Siembra", url: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=300&q=80" },
-                    { fecha: "Noviembre 2026 - Primeros brotes", url: "https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?auto=format&fit=crop&w=300&q=80" }
-                ]
-            },
-            { 
-                id: "ECO-002", 
-                protector: "Sofía Valentina", 
-                especie: "Pino Ecobris", 
-                estado: "En custodia", 
-                ubicacion: "4.6584° N, 74.0936° W (Sector Norte)",
-                historialFotos: [
-                    { fecha: "Octubre 2026 - Preparación del terreno", url: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=300&q=80" }
-                ]
-            }
+        // Base de datos estática
+        const arbolesEstaticos = [
+            { id: "ECO-001", protector: "Familia Gómez Ruiz", especie: "Roble Nativo Andino", estado: "Creciendo fuerte", ubicacion: "4.6097° N, 74.0817° W (Reserva)", historialFotos: [ { fecha: "Octubre 2026", url: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=300&q=80" } ] }
         ];
+
+        // RECUPERAR LOS ÁRBOLES NUEVOS COMPRADOS DESDE LOCALSTORAGE
+        const arbolesGuardados = JSON.parse(localStorage.getItem('arbolesNuevos')) || [];
+        
+        // UNIR LOS ESTÁTICOS CON LOS NUEVOS
+        const todosLosArboles = [...arbolesEstaticos, ...arbolesGuardados];
 
         const contenedor = document.getElementById("contenedorArboles");
         const buscador = document.getElementById("buscadorArbol");
@@ -115,11 +92,14 @@
         function mostrarArboles(lista) {
             contenedor.innerHTML = "";
             if (lista.length === 0) {
-                contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No encontramos ningún árbol con ese código. ¡Intenta de nuevo!</p>";
+                contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No encontramos ningún árbol. ¡Intenta de nuevo o haz tu primer pedido!</p>";
                 return;
             }
 
-            lista.forEach(arbol => {
+            // Invertir la lista para que los más nuevos salgan de primeros
+            const listaInvertida = [...lista].reverse();
+
+            listaInvertida.forEach(arbol => {
                 const tarjeta = document.createElement("div");
                 tarjeta.classList.add("tree-card");
                 tarjeta.innerHTML = `
@@ -135,9 +115,8 @@
                     document.getElementById("modalId").textContent = arbol.id;
                     document.getElementById("modalUbicacion").textContent = arbol.ubicacion;
                     
-                    // Inyectar el historial de fotos iterando sobre el arreglo
                     const galeria = document.getElementById("modalGaleria");
-                    galeria.innerHTML = ""; // Limpiar fotos anteriores
+                    galeria.innerHTML = ""; 
                     arbol.historialFotos.forEach(fotoObj => {
                         galeria.innerHTML += `
                             <div class="foto-item">
@@ -153,11 +132,11 @@
             });
         }
 
-        mostrarArboles(arboles);
+        mostrarArboles(todosLosArboles);
 
         buscador.addEventListener("input", (e) => {
             const texto = e.target.value.toLowerCase();
-            const filtrados = arboles.filter(a => a.id.toLowerCase().includes(texto) || a.protector.toLowerCase().includes(texto));
+            const filtrados = todosLosArboles.filter(a => a.id.toLowerCase().includes(texto) || a.protector.toLowerCase().includes(texto));
             mostrarArboles(filtrados);
         });
 
