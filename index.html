@@ -5,156 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
     <style>
-        :root {
-            --primary-color: #2c5e3b;
-            --secondary-color: #52b788;
-            --accent-color: #d4a373;
-            --bg-color: #fefae0;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2.5rem 1rem;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            margin: 0.5rem 0 0;
-            font-size: 1.1rem;
-            color: #d8f3dc;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            background: #23492e;
-            padding: 1rem;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--secondary-color);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(rgba(44, 94, 59, 0.05), rgba(44, 94, 59, 0.1));
-            border-radius: 12px;
-            margin-bottom: 3rem;
-        }
-
-        .hero h2 {
-            color: var(--primary-color);
-            font-size: 2rem;
-            margin-top: 0;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 1rem auto 2rem;
-            line-height: 1.6;
-        }
-
-        .btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.8rem 1.8rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-            display: inline-block;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .btn:hover {
-            background-color: #1e3d28;
-            transform: translateY(-2px);
-        }
-
-        .catalogo h2 {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 2rem;
-            font-size: 1.8rem;
-        }
-
-        .grid-productos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .producto-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-            padding: 1.5rem;
-            border: 1px solid #d8f3dc;
-            transition: transform 0.2s ease;
-        }
-
-        .producto-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .producto-card h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-        }
-
-        .badge {
-            display: inline-block;
-            background-color: #e9f5ed;
-            color: var(--primary-color);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-top: 1rem;
-            border: 1px solid #b7e4c7;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #1e3d28;
-            color: white;
-            margin-top: 4rem;
-        }
+        :root { --primary-color: #2c5e3b; --secondary-color: #52b788; --accent-color: #d4a373; --bg-color: #fefae0; --card-bg: #ffffff; --text-color: #333333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-color); }
+        header { background-color: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
+        header h1 { margin: 0; font-size: 2.2rem; }
+        header p { margin: 0.5rem 0 0; font-size: 1.1rem; color: #d8f3dc; }
+        nav { display: flex; justify-content: center; gap: 2rem; background: #23492e; padding: 1rem; }
+        nav a { color: white; text-decoration: none; font-weight: bold; transition: color 0.3s; }
+        nav a:hover { color: var(--secondary-color); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
+        
+        .hero { text-align: center; padding: 3rem 1rem; background: linear-gradient(rgba(44, 94, 59, 0.05), rgba(44, 94, 59, 0.1)); border-radius: 12px; margin-bottom: 3rem; }
+        .hero h2 { color: var(--primary-color); font-size: 2rem; margin-top: 0; }
+        .btn { background-color: var(--primary-color); color: white; padding: 0.8rem 1.8rem; border-radius: 8px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.3s, transform 0.2s; font-size: 1rem;}
+        .btn:hover { background-color: #1e3d28; transform: translateY(-2px); }
+        
+        .catalogo h2 { text-align: center; color: var(--primary-color); }
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .producto-card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; border: 1px solid #d8f3dc; box-shadow: 0 4px 10px rgba(0,0,0,0.08); text-align: center; }
+        
+        /* Estilos del Simulador */
+        .simulador { max-width: 600px; margin: 4rem auto; background: var(--card-bg); padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border: 1px solid #d8f3dc; text-align: center; }
+        .simulador-box label { display: block; margin-top: 1.5rem; color: var(--primary-color); font-weight: bold; text-align: left; }
+        .simulador-box select, .simulador-box input { width: 100%; padding: 0.8rem; margin-top: 0.5rem; border: 2px solid var(--primary-color); border-radius: 8px; font-size: 1rem; outline: none; box-sizing: border-box; }
+        .simulador-box hr { border: none; border-top: 1px solid #eee; margin: 2rem 0; }
+        
+        footer { text-align: center; padding: 2rem; background: #1e3d28; color: white; margin-top: 4rem; }
     </style>
 </head>
 <body>
@@ -165,36 +41,110 @@
 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="#tienda">Colección</a>
+        <a href="#simulador">Haz tu Pedido</a>
         <a href="arboles.html">Bosque Virtual</a>
     </nav>
 
     <main class="container">
         <section class="hero">
             <h2>Arte, Confort y Vida para el Planeta</h2>
-            <p>Creamos alfombras únicas y personalizadas. Lo más especial: por cada compra, plantamos y cuidamos de por vida un árbol asignado a tu nombre como su protector.</p>
-            <a href="#tienda" class="btn">Explorar Colección 🌱</a>
+            <p>Creamos alfombras únicas y personalizadas. Por cada compra, plantamos un árbol asignado a tu nombre.</p>
+            <a href="#simulador" class="btn">Cotizar Alfombra 🌱</a>
         </section>
 
         <section id="tienda" class="catalogo">
             <h2>Nuestra Colección Sostenible</h2>
             <div class="grid-productos">
                 <div class="producto-card">
-                    <h3>Colección Botánica</h3>
-                    <p>Diseños orgánicos inspirados en la naturaleza, elaborados con fibras ecológicas de alta durabilidad.</p>
-                    <span class="badge">Incluye 1 Árbol Protector 🌲</span>
+                    <h3 style="color: var(--primary-color);">Colección Botánica</h3>
+                    <p>Diseños orgánicos inspirados en la naturaleza.</p>
                 </div>
                 <div class="producto-card">
-                    <h3>Colección Geométrica</h3>
-                    <p>Líneas modernas y texturas suaves que aportan elegancia y calidez a tus espacios favoritos.</p>
-                    <span class="badge">Incluye 1 Árbol Protector 🌲</span>
+                    <h3 style="color: var(--primary-color);">Colección Geométrica</h3>
+                    <p>Líneas modernas y texturas suaves.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Cotizador y Formulario de Compra -->
+        <section id="simulador" class="simulador">
+            <h2 style="color: var(--primary-color); margin-top:0;">Simulador de Pedido</h2>
+            <div class="simulador-box">
+                <label for="tamano">Tamaño de la alfombra:</label>
+                <select id="tamano">
+                    <option value="50">Pequeña (100x100 cm) - $50 USD</option>
+                    <option value="80">Mediana (150x150 cm) - $80 USD</option>
+                    <option value="120">Grande (200x200 cm) - $120 USD</option>
+                </select>
+
+                <label for="diseno">Diseño:</label>
+                <select id="diseno">
+                    <option value="botanico">Colección Botánica</option>
+                    <option value="geometrico">Colección Geométrica</option>
+                </select>
+
+                <h3 id="precioEstimado" style="color: var(--primary-color); margin-top: 2rem;">Precio estimado: $50 USD</h3>
+
+                <hr>
+
+                <h3 style="color: var(--primary-color);">Finalizar Compra y Apadrinar Árbol</h3>
+                <input type="text" id="nombreCliente" placeholder="Ingresa tu nombre para el certificado..." required>
+                <button id="btnComprar" class="btn" style="margin-top: 1.5rem; width: 100%;">Confirmar Pedido 🌱</button>
+                
+                <p id="mensajeExito" style="color: var(--primary-color); font-weight: bold; margin-top: 1.5rem; display: none; background: #e9f5ed; padding: 1rem; border-radius: 8px; border: 1px solid #b7e4c7;"></p>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
-    </footer>
+    <footer><p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p></footer>
+
+    <script>
+        const tamanoSelect = document.getElementById('tamano');
+        const precioEstimado = document.getElementById('precioEstimado');
+        const btnComprar = document.getElementById('btnComprar');
+        const nombreCliente = document.getElementById('nombreCliente');
+        const mensajeExito = document.getElementById('mensajeExito');
+
+        // Actualizar precio dinámicamente
+        tamanoSelect.addEventListener('change', (e) => {
+            precioEstimado.textContent = `Precio estimado: $${e.target.value} USD`;
+        });
+
+        // Simular compra y generar árbol
+        btnComprar.addEventListener('click', () => {
+            const nombre = nombreCliente.value.trim();
+            if (!nombre) {
+                alert("Por favor, ingresa tu nombre para asignar tu árbol protector.");
+                return;
+            }
+
+            // Generar un código único aleatorio
+            const numeroAleatorio = Math.floor(Math.random() * 9000) + 1000;
+            const nuevoCodigo = `ECO-${numeroAleatorio}`;
+            
+            // Crear el objeto del nuevo árbol con su primera foto de semilla
+            const nuevoArbol = {
+                id: nuevoCodigo,
+                protector: nombre,
+                especie: "Semilla de Vida - Especie Sorpresa",
+                estado: "Recién plantada hoy 🌱",
+                ubicacion: "Vivero Principal EcoLegado",
+                historialFotos: [
+                    { fecha: "Día de compra - Semilla plantada", url: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=400&q=80" }
+                ]
+            };
+
+            // Guardar en la memoria del navegador (localStorage)
+            let arbolesGuardados = JSON.parse(localStorage.getItem('arbolesNuevos')) || [];
+            arbolesGuardados.push(nuevoArbol);
+            localStorage.setItem('arbolesNuevos', JSON.stringify(arbolesGuardados));
+
+            // Mostrar mensaje de éxito con enlace
+            mensajeExito.style.display = 'block';
+            mensajeExito.innerHTML = `¡Pedido confirmado, ${nombre}! <br> Tu árbol ha sido asignado con el código: <strong>${nuevoCodigo}</strong>.<br><br> <a href="arboles.html" style="color: var(--primary-color); text-decoration: underline;">Ve al Bosque Virtual y busca tu código.</a>`;
+            
+            nombreCliente.value = ''; // Limpiar la caja de texto
+        });
+    </script>
 </body>
 </html>
