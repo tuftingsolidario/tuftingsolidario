@@ -5,49 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
     <style>
-        :root { --primary-color: #2c5e3b; --secondary-color: #52b788; --bg-color: #fefae0; --card-bg: #ffffff; --text-color: #333333; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: var(--bg-color); color: var(--text-color); }
-        header { background-color: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
+        /* Variables Globales (Modo Claro / Clásico) */
+        :root { 
+            --primary-color: #2c5e3b; 
+            --secondary-color: #52b788; 
+            --bg-color: #fefae0; 
+            --card-bg: #ffffff; 
+            --text-color: #333333; 
+            --border-color: #d8f3dc;
+        }
+
+        /* Variables Modo Oscuro (Modo Orgánico Nocturno) */
+        [data-theme="dark"] {
+            --primary-color: #74c69d;
+            --secondary-color: #95d5b2;
+            --bg-color: #0d1b14;
+            --card-bg: #162c21;
+            --text-color: #e9ecef;
+            --border-color: #1b4332;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; padding: 0; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        header { background-color: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; transition: background-color 0.5s; }
         header h1 { margin: 0; font-size: 2.2rem; }
-        header p { margin: 0.5rem 0 0; font-size: 1.1rem; color: #d8f3dc; }
-        nav { display: flex; justify-content: center; gap: 1.5rem; background: #23492e; padding: 1rem; flex-wrap: wrap; }
+        header p { margin: 0.5rem 0 0; font-size: 1.1rem; }
+        
+        nav { display: flex; justify-content: center; align-items: center; gap: 1.5rem; background: #23492e; padding: 1rem; flex-wrap: wrap; }
         nav a { color: white; text-decoration: none; font-weight: bold; transition: color 0.3s; }
         nav a:hover { color: var(--secondary-color); }
+        
+        .btn-tema { background: transparent; border: 1px solid white; color: white; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-tema:hover { background: white; color: #23492e; }
+
         .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
         
         .hero { text-align: center; padding: 3rem 1rem; background: linear-gradient(rgba(44, 94, 59, 0.05), rgba(44, 94, 59, 0.1)); border-radius: 12px; margin-bottom: 3rem; }
         .hero h2 { color: var(--primary-color); font-size: 2rem; margin-top: 0; }
-        .btn { background-color: var(--primary-color); color: white; padding: 0.8rem 1.8rem; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.3s, transform 0.2s; }
-        .btn:hover { background-color: #1e3d28; transform: translateY(-2px); }
         
-        /* Sección Cómo Funciona */
-        .pasos { display: flex; gap: 1.5rem; justify-content: space-between; text-align: center; margin-bottom: 4rem; flex-wrap: wrap; }
-        .paso { flex: 1; min-width: 250px; background: var(--card-bg); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .paso h3 { color: var(--secondary-color); font-size: 3rem; margin: 0; }
-        .paso h4 { color: var(--primary-color); margin: 0.5rem 0; }
-
-        /* Tarjetas de Precios */
+        .btn { background-color: var(--primary-color); color: white; padding: 0.8rem 1.8rem; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.3s, transform 0.2s; border: none;}
+        .btn:hover { background-color: var(--secondary-color); transform: translateY(-2px); }
+        
         .seccion-titulo { text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 2rem; }
-        .grid-precios { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
-        .precio-card { background: var(--card-bg); border-radius: 12px; padding: 2rem; border: 2px solid #d8f3dc; text-align: center; transition: transform 0.2s; }
-        .precio-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
-        .precio-card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.5rem; }
-        .precio-card .monto { font-size: 2rem; font-weight: bold; color: var(--secondary-color); margin: 1rem 0; display: block; }
-        .precio-card ul { list-style: none; padding: 0; color: #555; margin-bottom: 1.5rem; }
-        .precio-card ul li { margin-bottom: 0.5rem; }
+        
+        /* Estilos Tarjetas (Precios y Testimonios) */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
+        .card { background: var(--card-bg); border-radius: 12px; padding: 2rem; border: 2px solid var(--border-color); text-align: center; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--secondary-color); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
+        .card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.5rem; }
+        
+        /* Testimonios Específico */
+        .testimonio-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+        .estrellas { color: #ffd166; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .cliente-info { font-style: italic; color: var(--secondary-color); margin-top: 1rem; }
 
-        /* Galería (Pre-Firebase) */
-        .grid-galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
-        .galeria-img { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-
-        /* Footer y Redes */
         footer { text-align: center; padding: 3rem 1rem; background: #1e3d28; color: white; }
-        .redes { margin-bottom: 1.5rem; display: flex; justify-content: center; gap: 1.5rem; }
-        .redes a { color: var(--secondary-color); text-decoration: none; font-size: 1.2rem; font-weight: bold; transition: color 0.3s; }
-        .redes a:hover { color: white; }
+
+        /* Clases para Animaciones de Scroll (Avanzado) */
+        .oculto { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .mostrar { opacity: 1; transform: translateY(0); }
     </style>
 </head>
-<body>
+<body data-theme="light">
     <header>
         <h1>EcoLegado Alfombras</h1>
         <p>Tu hogar, tu huella, tu legado</p>
@@ -55,92 +80,93 @@
 
     <nav>
         <a href="#como-funciona">Cómo Funciona</a>
-        <a href="#precios">Precios Aproximados</a>
-        <a href="#galeria">Galería Viva</a>
+        <a href="#testimonios">Testimonios</a>
         <a href="arboles.html">Bosque Virtual</a>
+        <button id="btnTema" class="btn-tema">🌙 Modo Nocturno</button>
     </nav>
 
     <main class="container">
-        <section class="hero">
+        <!-- Las secciones tienen la clase "oculto" para ser animadas con JS -->
+        <section class="hero oculto">
             <h2>Arte, Confort y Vida para el Planeta</h2>
             <p>Creamos alfombras únicas mediante la técnica de tufting. Por cada compra, sembramos y cuidamos un árbol asignado a tu nombre en nuestro bosque protegido.</p>
-            <a href="#precios" class="btn">Ver Medidas y Precios 🌱</a>
+            <a href="index.html" class="btn">Solicitar Cotización 🌱</a>
         </section>
 
-        <section id="como-funciona">
-            <h2 class="seccion-titulo">¿Cómo funciona tu EcoLegado?</h2>
-            <div class="pasos">
-                <div class="paso">
-                    <h3>1</h3>
-                    <h4>Eliges tu diseño</h4>
-                    <p>Cotizas la medida y el diseño (botánico o geométrico) que más conecte contigo.</p>
+        <section id="testimonios" class="oculto">
+            <h2 class="seccion-titulo">El Impacto de Nuestros Clientes</h2>
+            <div class="grid-cards">
+                <div class="card">
+                    <div class="estrellas">★★★★★</div>
+                    <p>"La alfombra quedó perfecta en mi sala, súper suave. Pero lo que más me emocionó fue entrar al Bosque Virtual y ver la foto del Roble que plantaron a nombre de mis hijos."</p>
+                    <img src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=400&q=80" alt="Alfombra en sala" class="testimonio-img">
+                    <p class="cliente-info">- María Fernanda R. (Protectora de ECO-001)</p>
                 </div>
-                <div class="paso">
-                    <h3>2</h3>
-                    <h4>Creamos y Sembramos</h4>
-                    <p>Fabricamos tu alfombra y, simultáneamente, sembramos tu árbol asignándote un código único.</p>
-                </div>
-                <div class="paso">
-                    <h3>3</h3>
-                    <h4>Monitoreas su Vida</h4>
-                    <p>Ingresas al Bosque Virtual con tu código para ver fotos y la geolocalización de tu árbol creciendo.</p>
+                <div class="card">
+                    <div class="estrellas">★★★★★</div>
+                    <p>"Un trabajo artesanal impecable y una causa hermosa. Saber que mi compra ayudó a reforestar me hace recomendar EcoLegado a todos mis amigos."</p>
+                    <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=400&q=80" alt="Árbol plantado" class="testimonio-img">
+                    <p class="cliente-info">- Carlos P. (Protector de ECO-003)</p>
                 </div>
             </div>
         </section>
 
-        <section id="precios">
+        <section id="precios" class="oculto">
             <h2 class="seccion-titulo">Precios Aproximados</h2>
-            <p style="text-align: center; margin-bottom: 2rem;">Los precios pueden variar según la complejidad del diseño.</p>
-            <div class="grid-precios">
-                <div class="precio-card">
-                    <h3>Pequeña</h3>
-                    <span class="monto">~$50 USD</span>
-                    <ul>
-                        <li>Medidas: 100x100 cm</li>
-                        <li>Diseño personalizado</li>
-                        <li><strong>1 Árbol Protector 🌱</strong></li>
-                    </ul>
+            <div class="grid-cards">
+                <div class="card">
+                    <h3>Pequeña (100x100)</h3>
+                    <span style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);">~$50 USD</span>
+                    <p><strong>1 Árbol Protector 🌱</strong></p>
                 </div>
-                <div class="precio-card">
-                    <h3>Mediana</h3>
-                    <span class="monto">~$80 USD</span>
-                    <ul>
-                        <li>Medidas: 150x150 cm</li>
-                        <li>Diseño personalizado</li>
-                        <li><strong>1 Árbol Protector 🌱</strong></li>
-                    </ul>
+                <div class="card">
+                    <h3>Mediana (150x150)</h3>
+                    <span style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);">~$80 USD</span>
+                    <p><strong>1 Árbol Protector 🌱</strong></p>
                 </div>
-                <div class="precio-card">
-                    <h3>Grande</h3>
-                    <span class="monto">~$120 USD</span>
-                    <ul>
-                        <li>Medidas: 200x200 cm</li>
-                        <li>Diseño premium</li>
-                        <li><strong>1 Árbol Protector 🌱</strong></li>
-                    </ul>
+                <div class="card">
+                    <h3>Grande (200x200)</h3>
+                    <span style="font-size: 2rem; font-weight: bold; color: var(--secondary-color);">~$120 USD</span>
+                    <p><strong>1 Árbol Protector 🌱</strong></p>
                 </div>
-            </div>
-        </section>
-
-        <section id="galeria">
-            <h2 class="seccion-titulo">Nuestra Galería Viva</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--primary-color);">Próximamente: Integración en tiempo real para ver las alfombras entregadas y los árboles recién plantados.</p>
-            <div class="grid-galeria">
-                <!-- Fotos de prueba mientras se conecta Firebase -->
-                <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=500&q=80" alt="Árbol plantado" class="galeria-img">
-                <img src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=500&q=80" alt="Alfombra diseño" class="galeria-img">
-                <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=500&q=80" alt="Árbol creciendo" class="galeria-img">
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="redes">
-            <a href="#">📷 Instagram</a>
-            <a href="#">📘 Facebook</a>
-            <a href="#">🎵 TikTok</a>
-        </div>
         <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
     </footer>
+
+    <script>
+        // 1. Lógica del Modo Oscuro / Orgánico
+        const btnTema = document.getElementById('btnTema');
+        const cuerpo = document.body;
+
+        btnTema.addEventListener('click', () => {
+            if (cuerpo.getAttribute('data-theme') === 'light') {
+                cuerpo.setAttribute('data-theme', 'dark');
+                btnTema.textContent = '☀️ Modo Claro';
+            } else {
+                cuerpo.setAttribute('data-theme', 'light');
+                btnTema.textContent = '🌙 Modo Nocturno';
+            }
+        });
+
+        // 2. Animaciones de Desplazamiento (Scroll) usando IntersectionObserver
+        const observer = new IntersectionObserver((entradas) => {
+            entradas.forEach(entrada => {
+                // Si el elemento entra en la ventana gráfica
+                if (entrada.isIntersecting) {
+                    entrada.target.classList.add('mostrar');
+                }
+            });
+        }, {
+            threshold: 0.1 // Se activa cuando el 10% del elemento es visible
+        });
+
+        // Seleccionamos todos los elementos ocultos y los observamos
+        const elementosOcultos = document.querySelectorAll('.oculto');
+        elementosOcultos.forEach((el) => observer.observe(el));
+    </script>
 </body>
 </html>
