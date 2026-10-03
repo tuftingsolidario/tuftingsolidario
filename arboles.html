@@ -3,47 +3,312 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Bosque Virtual | EcoLegado Alfombras</title>
+    <style>
+        :root {
+            --primary-color: #2c5e3b;
+            --secondary-color: #52b788;
+            --bg-color: #fefae0;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            background: #23492e;
+            padding: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .search-box input {
+            padding: 0.9rem 1.2rem;
+            width: 80%;
+            max-width: 450px;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .tree-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .tree-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid #d8f3dc;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .tree-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(44, 94, 59, 0.15);
+        }
+
+        .tree-card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+        }
+
+        .hint-click {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-top: 1rem;
+            display: block;
+        }
+
+        /* Estilos del Modal (Ventana Emergente) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 14px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .modal-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            background-color: #e9ecef;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1e3d28;
+            color: white;
+            margin-top: 4rem;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>EcoLegado Alfombras</h1>
-        <p>Tu hogar, tu huella, tu legado</p>
+        <h1>El Bosque de los Legados</h1>
+        <p>Cada alfombra siembra vida eterna. Conoce el árbol que cuida de ti y del planeta.</p>
     </header>
 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="#tienda">Colección</a>
+        <a href="index.html#tienda">Colección</a>
         <a href="arboles.html">Bosque Virtual</a>
     </nav>
 
-    <main class="container">
-        <section class="hero">
-            <h2>Alfombras ecológicas y personalizadas</h2>
-            <p>Cada compra planta y cuida de por vida un árbol asignado a tu nombre como su protector.</p>
-            <a href="#tienda" class="btn">Explorar Colección</a>
-        </section>
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="buscadorArbol" placeholder="🔍 Escribe tu nombre o código (ej. ECO-001)...">
+        </div>
 
-        <section id="tienda" class="catalogo">
-            <h2>Nuestra Colección</h2>
-            <div class="grid-productos">
-                <div class="producto-card">
-                    <h3>Alfombras Botánicas</h3>
-                    <p>Diseños inspirados en la naturaleza, hechos con materiales 100% sostenibles.</p>
-                    <span class="badge">Incluye 1 Árbol Protector 🌱</span>
-                </div>
-                <div class="producto-card">
-                    <h3>Alfombras Geométricas</h3>
-                    <p>Modernidad y confort para tus espacios con el mínimo impacto ambiental.</p>
-                    <span class="badge">Incluye 1 Árbol Protector 🌱</span>
-                </div>
-            </div>
-        </section>
-    </main>
+        <div id="contenedorArboles" class="tree-grid">
+            <!-- Las tarjetas se cargarán dinámicamente aquí -->
+        </div>
+    </div>
+
+    <!-- Ventana Modal para Detalles -->
+    <div id="modalArbol" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <img id="modalFoto" class="modal-img" src="" alt="Foto real del árbol">
+            <h2 id="modalEspecie" style="color: var(--primary-color); margin-top: 0;"></h2>
+            <p><strong>Protector/a:</strong> <span id="modalProtector"></span></p>
+            <p><strong>Código de Registro:</strong> <span id="modalId"></span></p>
+            <p><strong>Estado Actual:</strong> <span id="modalEstado"></span></p>
+            <p><strong>Fecha de Siembra:</strong> <span id="modalFecha"></span></p>
+            <p><strong>Ubicación GPS:</strong> <span id="modalUbicacion"></span></p>
+        </div>
+    </div>
 
     <footer>
-        <p>&copy; 2026 EcoLegado Alfombras. Todos los derechos reservados.</p>
+        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
     </footer>
+
+    <script>
+        const arboles = [
+            { 
+                id: "ECO-001", 
+                protector: "Familia Gómez Ruiz", 
+                especie: "Roble Nativo Andino", 
+                estado: "Creciendo fuerte y sano 🌱", 
+                fecha: "15 de Octubre, 2026",
+                ubicacion: "4.6097° N, 74.0817° W (Reserva Bosque Alto)",
+                foto: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=600&q=80"
+            },
+            { 
+                id: "ECO-002", 
+                protector: "Sofía Valentina", 
+                especie: "Pino Ecobris", 
+                estado: "En custodia perpetua 🌲", 
+                fecha: "18 de Octubre, 2026",
+                ubicacion: "4.6584° N, 74.0936° W (Sector Norte)",
+                foto: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80"
+            },
+            { 
+                id: "ECO-003", 
+                protector: "Carlos Pérez", 
+                especie: "Cedro Rosado", 
+                estado: "Plantado recientemente 🌿", 
+                fecha: "28 de Octubre, 2026",
+                ubicacion: "4.5981° N, 74.0760° W (Valle del Sur)",
+                foto: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        const contenedor = document.getElementById("contenedorArboles");
+        const buscador = document.getElementById("buscadorArbol");
+        const modal = document.getElementById("modalArbol");
+        const closeBtn = document.querySelector(".close-btn");
+
+        const modalFoto = document.getElementById("modalFoto");
+        const modalEspecie = document.getElementById("modalEspecie");
+        const modalProtector = document.getElementById("modalProtector");
+        const modalId = document.getElementById("modalId");
+        const modalEstado = document.getElementById("modalEstado");
+        const modalFecha = document.getElementById("modalFecha");
+        const modalUbicacion = document.getElementById("modalUbicacion");
+
+        function mostrarArboles(lista) {
+            contenedor.innerHTML = "";
+            
+            if (lista.length === 0) {
+                contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No encontramos ningún árbol con ese nombre o código. ¡Prueba otra búsqueda!</p>";
+                return;
+            }
+
+            lista.forEach(arbol => {
+                const tarjeta = document.createElement("div");
+                tarjeta.classList.add("tree-card");
+                tarjeta.innerHTML = `
+                    <h3>${arbol.especie}</h3>
+                    <p><strong>Protector:</strong> ${arbol.protector}</p>
+                    <p><strong>Código:</strong> ${arbol.id}</p>
+                    <p><strong>Estado:</strong> ${arbol.estado}</p>
+                    <span class="hint-click">Haz clic para ver detalles y mapa 📍</span>
+                `;
+
+                tarjeta.addEventListener("click", () => {
+                    modalFoto.src = arbol.foto;
+                    modalEspecie.textContent = arboles.find(a => a.id === arbol.id).especie;
+                    modalProtector.textContent = arbol.protector;
+                    modalId.textContent = arbol.id;
+                    modalEstado.textContent = arbol.estado;
+                    modalFecha.textContent = arbol.fecha;
+                    modalUbicacion.textContent = arbol.ubicacion;
+                    modal.style.display = "flex";
+                });
+
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        mostrarArboles(arboles);
+
+        buscador.addEventListener("input", (e) => {
+            const textoBusqueda = e.target.value.toLowerCase();
+            const arbolesFiltrados = arboles.filter(arbol => 
+                arbol.protector.toLowerCase().includes(textoBusqueda) || 
+                arbol.id.toLowerCase().includes(textoBusqueda)
+            );
+            mostrarArboles(arbolesFiltrados);
+        });
+
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
