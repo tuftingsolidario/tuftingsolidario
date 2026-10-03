@@ -3,135 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bosque de Legados | Tu Árbol Apadrinado</title>
-    <style>
-        :root {
-            --primary-color: #2c5e3b;
-            --bg-color: #fefae0;
-            --text-color: #333333;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-        }
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            background: #23492e;
-            padding: 1rem;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .search-box {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .search-box input {
-            padding: 0.8rem;
-            width: 60%;
-            max-width: 400px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .tree-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        .tree-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .tree-img {
-            height: 200px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-style: italic;
-        }
-        .tree-info {
-            padding: 1.5rem;
-        }
-        .tree-info h3 {
-            margin-top: 0;
-            color: var(--primary-color);
-        }
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #1e3d28;
-            color: white;
-            margin-top: 3rem;
-        }
-    </style>
+    <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <header>
-        <h1>El Bosque de los Legados</h1>
-        <p>Cada alfombra siembra vida eterna. Conoce el árbol que cuida de ti y del planeta.</p>
+        <h1>EcoLegado Alfombras</h1>
+        <p>Tu hogar, tu huella, tu legado</p>
     </header>
 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="index.html#tienda">Colección</a>
-        <a href="arboles.html">Legado de Árboles</a>
+        <a href="#tienda">Colección</a>
+        <a href="arboles.html">Bosque Virtual</a>
     </nav>
 
-    <div class="container">
-        <div class="search-box">
-            <input type="text" placeholder="Busca tu árbol por nombre del protector o código...">
-        </div>
+    <main class="container">
+        <section class="hero">
+            <h2>Alfombras ecológicas y personalizadas</h2>
+            <p>Cada compra planta y cuida de por vida un árbol asignado a tu nombre como su protector.</p>
+            <a href="#tienda" class="btn">Explorar Colección</a>
+        </section>
 
-        <div class="tree-grid">
-            <!-- Ejemplo de Tarjeta de Árbol -->
-            <div class="tree-card">
-                <div class="tree-img">[Foto actual del Árbol]</div>
-                <div class="tree-info">
-                    <h3>Árbol #042 - Roble Nativo</h3>
-                    <p><strong>Protector:</strong> Familia Gómez Ruiz</p>
-                    <p><strong>Fecha de siembra:</strong> 15 de Octubre, 2026</p>
-                    <p><strong>Estado:</strong> Creciendo fuerte y sano 🌱</p>
+        <section id="tienda" class="catalogo">
+            <h2>Nuestra Colección</h2>
+            <div class="grid-productos">
+                <div class="producto-card">
+                    <h3>Alfombras Botánicas</h3>
+                    <p>Diseños inspirados en la naturaleza, hechos con materiales 100% sostenibles.</p>
+                    <span class="badge">Incluye 1 Árbol Protector 🌱</span>
+                </div>
+                <div class="producto-card">
+                    <h3>Alfombras Geométricas</h3>
+                    <p>Modernidad y confort para tus espacios con el mínimo impacto ambiental.</p>
+                    <span class="badge">Incluye 1 Árbol Protector 🌱</span>
                 </div>
             </div>
-
-            <div class="tree-card">
-                <div class="tree-img">[Foto actual del Árbol]</div>
-                <div class="tree-info">
-                    <h3>Árbol #043 - Pino Ecobris</h3>
-                    <p><strong>Protector:</strong> Sofía Valentina</p>
-                    <p><strong>Fecha de siembra:</strong> 18 de Octubre, 2026</p>
-                    <p><strong>Estado:</strong> En custodia perpetua 🌲</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
+        <p>&copy; 2026 EcoLegado Alfombras. Todos los derechos reservados.</p>
     </footer>
-
 </body>
 </html>
