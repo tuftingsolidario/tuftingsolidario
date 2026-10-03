@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
+    <style>
+        :root {
+            --primary-color: #2c5e3b;
+            --secondary-color: #52b788;
+            --accent-color: #d4a373;
+            --bg-color: #fefae0;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.1rem;
+            color: #d8f3dc;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            background: #23492e;
+            padding: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(rgba(44, 94, 59, 0.05), rgba(44, 94, 59, 0.1));
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .hero h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 1rem auto 2rem;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: #1e3d28;
+            transform: translateY(-2px);
+        }
+
+        .catalogo h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .producto-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            padding: 1.5rem;
+            border: 1px solid #d8f3dc;
+            transition: transform 0.2s ease;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .producto-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #e9f5ed;
+            color: var(--primary-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            border: 1px solid #b7e4c7;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1e3d28;
+            color: white;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EcoLegado Alfombras</h1>
+        <p>Tu hogar, tu huella, tu legado</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="#tienda">Colección</a>
+        <a href="arboles.html">Bosque Virtual</a>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Arte, Confort y Vida para el Planeta</h2>
+            <p>Creamos alfombras únicas y personalizadas. Lo más especial: por cada compra, plantamos y cuidamos de por vida un árbol asignado a tu nombre como su protector.</p>
+            <a href="#tienda" class="btn">Explorar Colección 🌱</a>
+        </section>
+
+        <section id="tienda" class="catalogo">
+            <h2>Nuestra Colección Sostenible</h2>
+            <div class="grid-productos">
+                <div class="producto-card">
+                    <h3>Colección Botánica</h3>
+                    <p>Diseños orgánicos inspirados en la naturaleza, elaborados con fibras ecológicas de alta durabilidad.</p>
+                    <span class="badge">Incluye 1 Árbol Protector 🌲</span>
+                </div>
+                <div class="producto-card">
+                    <h3>Colección Geométrica</h3>
+                    <p>Líneas modernas y texturas suaves que aportan elegancia y calidez a tus espacios favoritos.</p>
+                    <span class="badge">Incluye 1 Árbol Protector 🌲</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
+    </footer>
+</body>
+</html>
