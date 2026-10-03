@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfombras Personalizadas | Tu Hogar, Tu Huella, Tu Legado</title>
+    <style>
+        :root {
+            --primary-color: #2c5e3b; /* Verde ecológico */
+            --accent-color: #d4a373;  /* Tono cálido de fibra natural */
+            --bg-color: #fefae0;      /* Fondo suave crema */
+            --text-color: #333333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            background: #23492e;
+            padding: 1rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: auto;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        .features {
+            display: flex;
+            justify-content: space-around;
+            padding: 3rem 1rem;
+            background: white;
+            text-align: center;
+        }
+        .feature-box {
+            max-width: 300px;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1e3d28;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>EcoLegado Alfombras</h1>
+        <p>Alfombras personalizadas únicas como tú</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="#tienda">Colección</a>
+        <a href="arboles.html">Legado de Árboles (Apadrinamiento)</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <section class="hero">
+        <h1>Tu hogar, tu huella, tu legado</h1>
+        <p>No solo vendemos alfombras hechas con fibras que aportan al planeta; creamos legados que duran para siempre. Por cada compra, plantamos y cuidamos de por vida un árbol con el nombre que elijas como su protector.</p>
+        <a href="arboles.html" class="cta-btn">Ver el bosque de legados</a>
+    </section>
+
+    <section class="features">
+        <div class="feature-box">
+            <h3>🌱 Fibras Sostenibles</h3>
+            <p>Materiales amigables con el medio ambiente que reducen la huella de carbono.</p>
+        </div>
+        <div class="feature-box">
+            <h3>🎨 100% Personalizadas</h3>
+            <p>Diseños únicos adaptados a tu espacio, estilo de vida y personalidad.</p>
+        </div>
+        <div class="feature-box">
+            <h3>🛡️ Cuidado de por Vida</h3>
+            <p>Tu árbol adoptivo protegido permanentemente bajo tu nombre o dedicatoria.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 EcoLegado Alfombras. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
