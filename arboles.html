@@ -21,15 +21,21 @@
         .tree-card:hover { transform: translateY(-5px); }
         .tree-card h3 { margin-top: 0; color: var(--primary-color); }
         .hint-click { font-size: 0.85rem; color: var(--secondary-color); font-weight: bold; margin-top: 1rem; display: block; }
+        
+        .badge-nivel { display: inline-block; background-color: #e9f5ed; color: var(--primary-color); padding: 0.3rem 0.6rem; border-radius: 15px; font-size: 0.8rem; font-weight: bold; margin-bottom: 1rem; border: 1px solid #b7e4c7; }
 
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; padding: 1rem; }
-        .modal-content { background-color: #fff; padding: 2rem; border-radius: 14px; width: 100%; max-width: 600px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; padding: 1rem; }
+        .modal-content { background-color: #fff; padding: 2.5rem; border-radius: 14px; width: 100%; max-width: 600px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #aaa; }
         .close-btn:hover { color: var(--primary-color); }
         
+        .clima-box { background: #e0fbfc; color: #0077b6; padding: 1rem; border-radius: 8px; margin: 1.5rem 0; font-weight: bold; }
+        .btn-compartir { background-color: #25d366; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-compartir:hover { background-color: #128c7e; }
+
         .historial-galeria { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; margin-top: 1rem; scroll-behavior: smooth; }
-        .foto-item { min-width: 220px; text-align: center; background: #f9f9f9; border-radius: 8px; padding: 10px; border: 1px solid #eee; }
-        .foto-item img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; }
+        .foto-item { min-width: 200px; background: #f9f9f9; border-radius: 8px; padding: 10px; border: 1px solid #eee; }
+        .foto-item img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; }
         .foto-item span { display: block; margin-top: 8px; font-size: 0.9rem; color: var(--primary-color); font-weight: bold; }
 
         footer { text-align: center; padding: 2rem; background: #1e3d28; color: white; margin-top: 4rem; }
@@ -38,68 +44,80 @@
 <body>
     <header>
         <h1>El Bosque de los Legados</h1>
-        <p>Cada alfombra siembra vida eterna. Conoce el árbol que cuida de ti y del planeta.</p>
+        <p>Cada alfombra siembra vida eterna.</p>
     </header>
 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="index.html#simulador">Haz tu Pedido</a>
+        <a href="index.html#precios">Precios</a>
         <a href="arboles.html">Bosque Virtual</a>
     </nav>
 
     <div class="container">
         <div class="search-box">
-            <input type="text" id="buscadorArbol" placeholder="🔍 Ingresa tu código (ej. ECO-001) o tu nombre...">
+            <input type="text" id="buscadorArbol" placeholder="🔍 Ingresa tu código o tu nombre...">
         </div>
         <div id="contenedorArboles" class="tree-grid"></div>
     </div>
 
-    <!-- Modal con historial de crecimiento -->
+    <!-- Modal del Árbol -->
     <div id="modalArbol" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
-            <h2 id="modalEspecie" style="color: var(--primary-color); margin-top: 0;"></h2>
-            <p><strong>Protector/a:</strong> <span id="modalProtector"></span></p>
-            <p><strong>Código de Registro:</strong> <span id="modalId"></span></p>
+            <div id="modalNivel" class="badge-nivel"></div>
+            <h2 id="modalEspecie" style="color: var(--primary-color); margin-top: 0.5rem;"></h2>
+            <p><strong>Protector:</strong> <span id="modalProtector"></span></p>
+            <p><strong>Código:</strong> <span id="modalId"></span></p>
             <p><strong>Ubicación GPS:</strong> <span id="modalUbicacion"></span></p>
             
-            <h3 style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">Historial de Crecimiento 📸</h3>
-            <div id="modalGaleria" class="historial-galeria">
-                <!-- Las fotos se inyectarán aquí con JavaScript -->
+            <div class="clima-box" id="modalClima">
+                <!-- El clima simulado se inyectará aquí -->
             </div>
+
+            <button class="btn-compartir" id="btnCompartir">
+                📲 Compartir mi Legado
+            </button>
+            
+            <h3 style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">Historial de Crecimiento 📸</h3>
+            <div id="modalGaleria" class="historial-galeria"></div>
         </div>
     </div>
 
-    <footer><p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p></footer>
+    <footer><p>&copy; 2026 EcoLegado Alfombras.</p></footer>
 
     <script>
-        // Base de datos estática
         const arbolesEstaticos = [
-            { id: "ECO-001", protector: "Familia Gómez Ruiz", especie: "Roble Nativo Andino", estado: "Creciendo fuerte", ubicacion: "4.6097° N, 74.0817° W (Reserva)", historialFotos: [ { fecha: "Octubre 2026", url: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=300&q=80" } ] }
+            { id: "ECO-001", protector: "Familia Gómez Ruiz", especie: "Roble Nativo Andino", ubicacion: "4.6097° N, 74.0817° W (Reserva)", historialFotos: [ { fecha: "Octubre 2026", url: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=300&q=80" } ] },
+            { id: "ECO-002", protector: "Familia Gómez Ruiz", especie: "Cedro Blanco", ubicacion: "4.6098° N, 74.0818° W (Reserva)", historialFotos: [ { fecha: "Octubre 2026", url: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=300&q=80" } ] },
+            { id: "ECO-003", protector: "Familia Gómez Ruiz", especie: "Pino Ecobris", ubicacion: "4.6099° N, 74.0819° W (Reserva)", historialFotos: [ { fecha: "Octubre 2026", url: "https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?auto=format&fit=crop&w=300&q=80" } ] },
+            { id: "ECO-9375", protector: "arnold", especie: "Semilla de Vida - Especie Sorpresa", ubicacion: "Vivero Principal EcoLegado", historialFotos: [ { fecha: "Día de compra", url: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=300&q=80" } ] }
         ];
 
-        // RECUPERAR LOS ÁRBOLES NUEVOS COMPRADOS DESDE LOCALSTORAGE
         const arbolesGuardados = JSON.parse(localStorage.getItem('arbolesNuevos')) || [];
-        
-        // UNIR LOS ESTÁTICOS CON LOS NUEVOS
         const todosLosArboles = [...arbolesEstaticos, ...arbolesGuardados];
 
         const contenedor = document.getElementById("contenedorArboles");
         const buscador = document.getElementById("buscadorArbol");
         const modal = document.getElementById("modalArbol");
-        const closeBtn = document.querySelector(".close-btn");
+
+        // Simulación de API de Clima
+        const climasSimulados = [
+            "☀️ 22°C - Soleado. Tu árbol está recibiendo luz plena.",
+            "🌧️ 16°C - Lloviendo. ¡Tu árbol está bebiendo agua fresca!",
+            "⛅ 19°C - Parcialmente nublado. Clima perfecto para crecer."
+        ];
+
+        // Lógica de Gamificación (Niveles)
+        function obtenerNivel(nombreProtector) {
+            const cantidad = todosLosArboles.filter(a => a.protector.toLowerCase() === nombreProtector.toLowerCase()).length;
+            if(cantidad >= 5) return "🌳 Maestro del Bosque (Familia)";
+            if(cantidad >= 3) return "🌿 Guardián del Bosque";
+            return "🌱 Protector Semilla";
+        }
 
         function mostrarArboles(lista) {
             contenedor.innerHTML = "";
-            if (lista.length === 0) {
-                contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No encontramos ningún árbol. ¡Intenta de nuevo o haz tu primer pedido!</p>";
-                return;
-            }
-
-            // Invertir la lista para que los más nuevos salgan de primeros
-            const listaInvertida = [...lista].reverse();
-
-            listaInvertida.forEach(arbol => {
+            lista.forEach(arbol => {
                 const tarjeta = document.createElement("div");
                 tarjeta.classList.add("tree-card");
                 tarjeta.innerHTML = `
@@ -115,16 +133,28 @@
                     document.getElementById("modalId").textContent = arbol.id;
                     document.getElementById("modalUbicacion").textContent = arbol.ubicacion;
                     
+                    // Asignar Gamificación y Clima
+                    document.getElementById("modalNivel").textContent = obtenerNivel(arbol.protector);
+                    document.getElementById("modalClima").textContent = climasSimulados[Math.floor(Math.random() * climasSimulados.length)];
+                    
+                    // Galería
                     const galeria = document.getElementById("modalGaleria");
                     galeria.innerHTML = ""; 
                     arbol.historialFotos.forEach(fotoObj => {
-                        galeria.innerHTML += `
-                            <div class="foto-item">
-                                <img src="${fotoObj.url}" alt="Foto del árbol">
-                                <span>${fotoObj.fecha}</span>
-                            </div>
-                        `;
+                        galeria.innerHTML += `<div class="foto-item"><img src="${fotoObj.url}" alt="Foto del árbol"><span>${fotoObj.fecha}</span></div>`;
                     });
+
+                    // Configurar botón de compartir nativo
+                    document.getElementById("btnCompartir").onclick = async () => {
+                        const textoCompartir = `¡Acabo de plantar un árbol (${arbol.especie}) con EcoLegado Alfombras! 🌍🌱\nMi código de protector es: ${arbol.id}.\nÚnete a reforestar el planeta: https://tuftingsolidario.github.io/`;
+                        if (navigator.share) {
+                            try {
+                                await navigator.share({ title: 'Mi EcoLegado', text: textoCompartir });
+                            } catch (err) { console.log('Error al compartir', err); }
+                        } else {
+                            alert("Copia este texto para tus redes:\n\n" + textoCompartir);
+                        }
+                    };
 
                     modal.style.display = "flex";
                 });
@@ -136,11 +166,10 @@
 
         buscador.addEventListener("input", (e) => {
             const texto = e.target.value.toLowerCase();
-            const filtrados = todosLosArboles.filter(a => a.id.toLowerCase().includes(texto) || a.protector.toLowerCase().includes(texto));
-            mostrarArboles(filtrados);
+            mostrarArboles(todosLosArboles.filter(a => a.id.toLowerCase().includes(texto) || a.protector.toLowerCase().includes(texto)));
         });
 
-        closeBtn.addEventListener("click", () => modal.style.display = "none");
+        document.querySelector(".close-btn").addEventListener("click", () => modal.style.display = "none");
         window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
     </script>
 </body>
