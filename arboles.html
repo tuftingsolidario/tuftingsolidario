@@ -4,201 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bosque Virtual | EcoLegado Alfombras</title>
+    <!-- Carga de reCAPTCHA Enterprise para App Check -->
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
     <style>
-        :root { --primary-color: #2c5e3b; --secondary-color: #52b788; --bg-color: #fefae0; --card-bg: #ffffff; --text-color: #333333; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg-color); color: var(--text-color); }
-        header { background-color: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; }
-        nav { display: flex; justify-content: center; gap: 2rem; background: #23492e; padding: 1rem; }
-        nav a { color: white; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-        nav a:hover { color: var(--secondary-color); }
-        .container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
-        
-        .search-box { text-align: center; margin-bottom: 2.5rem; }
-        .search-box input { padding: 0.9rem 1.2rem; width: 80%; max-width: 450px; border: 2px solid var(--primary-color); border-radius: 10px; font-size: 1rem; outline: none; }
-        
-        .tree-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .tree-card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; border: 1px solid #d8f3dc; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-        .tree-card:hover { transform: translateY(-5px); }
-        .tree-card h3 { margin-top: 0; color: var(--primary-color); }
-        .hint-click { font-size: 0.85rem; color: var(--secondary-color); font-weight: bold; margin-top: 1rem; display: block; }
-        
-        .badge-nivel { display: inline-block; background-color: #e9f5ed; color: var(--primary-color); padding: 0.3rem 0.6rem; border-radius: 15px; font-size: 0.8rem; font-weight: bold; margin-bottom: 1rem; border: 1px solid #b7e4c7; }
-
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; padding: 1rem; }
-        .modal-content { background-color: #fff; padding: 2.5rem; border-radius: 14px; width: 100%; max-width: 600px; position: relative; max-height: 90vh; overflow-y: auto; text-align: center; }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #aaa; }
-        .close-btn:hover { color: var(--primary-color); }
-        
-        .clima-box { background: #e0fbfc; color: #0077b6; padding: 1rem; border-radius: 8px; margin: 1.5rem 0; font-weight: bold; }
-        .btn-compartir { background-color: #25d366; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 1rem; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
-        .btn-compartir:hover { background-color: #128c7e; }
-
-        .historial-galeria { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; margin-top: 1rem; scroll-behavior: smooth; }
-        .foto-item { min-width: 200px; background: #f9f9f9; border-radius: 8px; padding: 10px; border: 1px solid #eee; }
-        .foto-item img { width: 100%; height: 140px; object-fit: cover; border-radius: 6px; }
-        .foto-item span { display: block; margin-top: 8px; font-size: 0.9rem; color: var(--primary-color); font-weight: bold; }
-
-        #loader { text-align: center; color: var(--primary-color); font-weight: bold; margin-bottom: 2rem; }
-
-        footer { text-align: center; padding: 2rem; background: #1e3d28; color: white; margin-top: 4rem; }
+        :root { --primary: #2c5e3b; --secondary: #4CAF50; --bg: #f4f9f4; --text: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; text-align: center; }
+        header { background: var(--primary); color: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        header h1 { margin: 0 0 10px; font-size: 2rem; }
+        .buscador { margin: 40px 0; display: flex; justify-content: center; gap: 10px; }
+        input { padding: 12px; width: 60%; max-width: 320px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; outline: none; }
+        input:focus { border-color: var(--secondary); box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
+        button { padding: 12px 24px; background-color: var(--secondary); color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #388E3C; }
+        .tarjeta-arbol { background: white; padding: 25px; border-radius: 12px; max-width: 450px; margin: 0 auto; box-shadow: 0 6px 15px rgba(0,0,0,0.08); text-align: left; }
+        .tarjeta-arbol h2 { color: var(--primary); margin-top: 0; text-align: center; }
+        .tarjeta-arbol p { margin: 8px 0; font-size: 1.05rem; }
+        .tarjeta-arbol img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; margin-top: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .mensaje-estado { font-weight: bold; color: #666; margin-top: 20px; }
     </style>
 </head>
 <body>
+
     <header>
         <h1>El Bosque de los Legados</h1>
-        <p>Cada alfombra siembra vida eterna.</p>
+        <p>Tu hogar, tu huella, tu legado. Cada alfombra siembra vida eterna.</p>
     </header>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="index.html#precios">Precios</a>
-        <a href="arboles.html">Bosque Virtual</a>
-    </nav>
+    <main>
+        <section class="buscador">
+            <input type="text" id="searchInput" placeholder="Ingresa tu código (ej. ECO-999)" onkeypress="if(event.key === 'Enter') buscarArbol()">
+            <button onclick="buscarArbol()">Buscar 🌳</button>
+        </section>
 
-    <div class="container">
-        <div class="search-box">
-            <input type="text" id="buscadorArbol" placeholder="🔍 Ingresa tu código o tu nombre...">
-        </div>
-        <div id="loader">Conectando con el ecosistema en la nube... ☁️</div>
-        <div id="contenedorArboles" class="tree-grid"></div>
-    </div>
+        <section id="resultadoArbol" class="tarjeta-arbol" style="display: none;">
+            <!-- Contenido dinámico -->
+        </section>
+        <div id="estadoBusqueda" class="mensaje-estado">Ingresa tu código único para conocer la historia de tu árbol protector.</div>
+    </main>
 
-    <!-- Modal del Árbol -->
-    <div id="modalArbol" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div id="modalNivel" class="badge-nivel"></div>
-            <h2 id="modalEspecie" style="color: var(--primary-color); margin-top: 0.5rem;"></h2>
-            <p><strong>Protector:</strong> <span id="modalProtector"></span></p>
-            <p><strong>Código:</strong> <span id="modalId"></span></p>
-            <p><strong>Ubicación GPS:</strong> <span id="modalUbicacion"></span></p>
-            
-            <div class="clima-box" id="modalClima"></div>
-
-            <button class="btn-compartir" id="btnCompartir">
-                📲 Compartir mi Legado
-            </button>
-            
-            <h3 style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">Historial de Crecimiento 📸</h3>
-            <div id="modalGaleria" class="historial-galeria"></div>
-        </div>
-    </div>
-
-    <footer><p>&copy; 2026 EcoLegado Alfombras.</p></footer>
-
-    <!-- SDK Modular de Firebase -->
+    <!-- Script de Firebase y lógica de búsqueda optimizada -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-check.js";
 
-        // ⚠️ REEMPLAZARÁS ESTOS VALORES CUANDO CREES TU PROYECTO EN FIREBASE
+        // Tus credenciales oficiales de Firebase
         const firebaseConfig = {
-            apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
+            apiKey: "TU_API_KEY",
             authDomain: "ecolegado-21e65.firebaseapp.com",
             projectId: "ecolegado-21e65",
-            storageBucket: "ecolegado-21e65.firebasestorage.app",
-            messagingSenderId: "678783567354",
-            appId: "1:678783567354:web:657139d7917401b745d043",
-            measurementId: "G-MJ78QZDTHJ"
+            storageBucket: "ecolegado-21e65.appspot.com",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID",
+            appId: "TU_APP_ID"
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        const db = getFirestore(app);
 
-        const contenedor = document.getElementById("contenedorArboles");
-        const buscador = document.getElementById("buscadorArbol");
-        const loader = document.getElementById("loader");
-        const modal = document.getElementById("modalArbol");
-
-        let arbolesGlobales = [];
-
-        // Conexión en tiempo real a la base de datos
-        const arbolesRef = ref(db, 'arboles');
-        onValue(arbolesRef, (snapshot) => {
-            const data = snapshot.val();
-            loader.style.display = "none"; 
-            
-            if (data) {
-                // Convertir el JSON de Firebase en un Array
-                arbolesGlobales = Object.keys(data).map(key => data[key]);
-            } else {
-                arbolesGlobales = [];
-            }
-            mostrarArboles(arbolesGlobales);
-        }, (error) => {
-            loader.textContent = "Error al conectar con la base de datos. Intenta más tarde.";
-            console.error(error);
-        });
-
-        const climasSimulados = [
-            "☀️ 22°C - Soleado. Tu árbol está recibiendo luz plena.",
-            "🌧️ 16°C - Lloviendo. ¡Tu árbol está bebiendo agua fresca!",
-            "⛅ 19°C - Parcialmente nublado. Clima perfecto para crecer."
-        ];
-
-        function obtenerNivel(nombreProtector) {
-            const cantidad = arbolesGlobales.filter(a => a.protector.toLowerCase() === nombreProtector.toLowerCase()).length;
-            if(cantidad >= 5) return "🌳 Maestro del Bosque (Familia)";
-            if(cantidad >= 3) return "🌿 Guardián del Bosque";
-            return "🌱 Protector Semilla";
+        // Inicialización de App Check con reCAPTCHA Enterprise
+        try {
+            initializeAppCheck(app, {
+                provider: new ReCaptchaEnterpriseProvider('6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g'),
+                isTokenAutoRefreshEnabled: true
+            });
+        } catch (e) {
+            console.error("Error al inicializar App Check:", e);
         }
 
-        function mostrarArboles(lista) {
-            contenedor.innerHTML = "";
-            if (lista.length === 0) {
-                contenedor.innerHTML = "<p style='grid-column: 1/-1; text-align: center;'>No hay árboles registrados aún.</p>";
+        window.buscarArbol = async function() {
+            const codigoBuscado = document.getElementById('searchInput').value.trim();
+            const contenedor = document.getElementById('resultadoArbol');
+            const estado = document.getElementById('estadoBusqueda');
+            
+            if (!codigoBuscado) {
+                estado.innerHTML = "<span style='color: #d9534f;'>Por favor, escribe un código válido.</span>";
+                contenedor.style.display = "none";
                 return;
             }
 
-            lista.forEach(arbol => {
-                const tarjeta = document.createElement("div");
-                tarjeta.classList.add("tree-card");
-                tarjeta.innerHTML = `
-                    <h3>${arbol.especie || 'Semilla'}</h3>
-                    <p><strong>Protector:</strong> ${arbol.protector}</p>
-                    <p><strong>Código:</strong> ${arbol.id}</p>
-                    <span class="hint-click">Haz clic para ver el crecimiento 📸</span>
-                `;
+            estado.textContent = "Buscando en el bosque virtual...";
+            contenedor.style.display = "none";
 
-                tarjeta.addEventListener("click", () => {
-                    document.getElementById("modalEspecie").textContent = arbol.especie;
-                    document.getElementById("modalProtector").textContent = arbol.protector;
-                    document.getElementById("modalId").textContent = arbol.id;
-                    document.getElementById("modalUbicacion").textContent = arbol.ubicacion || 'En vivero';
-                    document.getElementById("modalNivel").textContent = obtenerNivel(arbol.protector);
-                    document.getElementById("modalClima").textContent = climasSimulados[Math.floor(Math.random() * climasSimulados.length)];
-                    
-                    const galeria = document.getElementById("modalGaleria");
-                    galeria.innerHTML = ""; 
-                    if(arbol.historialFotos) {
-                        arbol.historialFotos.forEach(fotoObj => {
-                            galeria.innerHTML += `<div class="foto-item"><img src="${fotoObj.url}" alt="Foto"><span>${fotoObj.fecha}</span></div>`;
-                        });
-                    }
+            try {
+                const q = query(collection(db, "arboles"), where("codigo", "==", codigoBuscado));
+                const querySnapshot = await getDocs(q);
 
-                    document.getElementById("btnCompartir").onclick = async () => {
-                        const texto = `¡Acabo de plantar un árbol (${arbol.especie}) con EcoLegado Alfombras! 🌍🌱\nCódigo: ${arbol.id}.\nhttps://tuftingsolidario.github.io/`;
-                        if (navigator.share) {
-                            try { await navigator.share({ title: 'Mi EcoLegado', text: texto }); } 
-                            catch (err) { console.log(err); }
-                        } else {
-                            alert("Copia este texto:\n\n" + texto);
-                        }
-                    };
+                if (querySnapshot.empty) {
+                    estado.innerHTML = "<span style='color: #d9534f;'>No encontramos ningún árbol con ese código. ¡Verifica e intenta nuevamente!</span>";
+                    return;
+                }
 
-                    modal.style.display = "flex";
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    contenedor.innerHTML = `
+                        <h2>🌿 ${data.especie}</h2>
+                        <p><strong>Protector/a:</strong> ${data.protector}</p>
+                        <p><strong>Código Único:</strong> ${data.codigo}</p>
+                        <p><strong>Impacto:</strong> Árbol adoptado de por vida con amor.</p>
+                        <img src="${data.imagenUrl}" alt="Árbol de ${data.protector}">
+                    `;
+                    contenedor.style.display = "block";
+                    estado.textContent = "";
                 });
-                contenedor.appendChild(tarjeta);
-            });
+            } catch (error) {
+                console.error("Error en la consulta:", error);
+                estado.innerHTML = "<span style='color: #d9534f;'>Ocurrió un error al consultar la base de datos de manera segura.</span>";
+            }
         }
-
-        buscador.addEventListener("input", (e) => {
-            const texto = e.target.value.toLowerCase();
-            mostrarArboles(arbolesGlobales.filter(a => a.id.toLowerCase().includes(texto) || a.protector.toLowerCase().includes(texto)));
-        });
-
-        document.querySelector(".close-btn").addEventListener("click", () => modal.style.display = "none");
-        window.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
     </script>
+
 </body>
 </html>
