@@ -62,7 +62,7 @@
         .card:hover { transform: translateY(-5px); border-color: var(--secondary-color); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.5rem; }
         
-        /* Testimonios Específico Dinámico */
+        /* Testimonios Específico Destacados */
         .testimonio-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-top: 1rem; margin-bottom: 1rem; }
         .estrellas { color: #ffd166; font-size: 1.2rem; margin-bottom: 0.5rem; }
         .cliente-info { font-style: italic; color: var(--secondary-color); margin-top: 1rem; }
@@ -70,7 +70,7 @@
 
         footer { text-align: center; padding: 3rem 1rem; background: #1e3d28; color: white; }
 
-        /* Clases para Animaciones de Scroll (Avanzado) */
+        /* Clases para Animaciones de Scroll */
         .oculto { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .mostrar { opacity: 1; transform: translateY(0); }
     </style>
@@ -97,12 +97,12 @@
             <a href="#precios" class="btn">Solicitar Cotización 🌱</a>
         </section>
 
-        <!-- Sección de Testimonios Dinámicos Aleatorios -->
+        <!-- Sección de Testimonios Destacados por Ti -->
         <section id="testimonios" class="oculto">
             <h2 class="seccion-titulo">El Impacto de Nuestros Clientes</h2>
-            <div id="contenedorAleatorio" class="grid-cards">
+            <div id="contenedorDestacadas" class="grid-cards">
                 <div class="card">
-                    <p>Cargando experiencias del bosque...</p>
+                    <p>Cargando testimonios destacados...</p>
                 </div>
             </div>
             <div class="ver-todas-container">
@@ -137,12 +137,11 @@
         <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
     </footer>
 
-    <!-- Scripts de Firebase y Lógica General -->
+    <!-- Scripts de Firebase y Lógica para Cargar Reseñas Destacadas -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, query, where, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Configuración de tu Firebase
         const firebaseConfig = {
             apiKey: "TU_API_KEY",
             authDomain: "ecolegado-21e65.firebaseapp.com",
@@ -155,30 +154,21 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Función para cargar 2 reseñas aleatorias en el inicio
-        async function cargarResenasAleatorias() {
-            const contenedor = document.getElementById('contenedorAleatorio');
+        async function cargarResenasDestacadas() {
+            const contenedor = document.getElementById('contenedorDestacadas');
             try {
-                const querySnapshot = await getDocs(collection(db, "resenas"));
-                let resenas = [];
-                
-                querySnapshot.forEach((doc) => {
-                    resenas.push(doc.data());
-                });
+                // Consultamos únicamente las reseñas que tengan el campo destacado == true
+                const q = query(collection(db, "resenas"), where("destacado", "==", true), limit(2));
+                const querySnapshot = await getDocs(q);
 
-                if (resenas.length === 0) {
-                    contenedor.innerHTML = `<div class="card"><p>Aún no hay reseñas registradas en el sistema.</p></div>`;
+                if (querySnapshot.empty) {
+                    contenedor.innerHTML = `<div class="card"><p>Configura dos reseñas como destacadas en tu consola de Firebase para mostrarlas aquí.</p></div>`;
                     return;
                 }
 
-                // Mezclar aleatoriamente el arreglo
-                resenas.sort(() => Math.random() - 0.5);
-
-                // Tomar máximo 2 reseñas
-                const seleccionadas = resenas.slice(0, 2);
                 contenedor.innerHTML = "";
-
-                seleccionadas.forEach(r => {
+                querySnapshot.forEach((doc) => {
+                    const r = doc.data();
                     contenedor.innerHTML += `
                         <div class="card">
                             <div class="estrellas">★★★★★</div>
@@ -189,12 +179,12 @@
                     `;
                 });
             } catch (error) {
-                console.error("Error al cargar reseñas aleatorias:", error);
+                console.error("Error al cargar reseñas destacadas:", error);
                 contenedor.innerHTML = `<div class="card"><p>No se pudieron cargar los testimonios en este momento.</p></div>`;
             }
         }
 
-        cargarResenasAleatorias();
+        cargarResenasDestacadas();
     </script>
 
     <script>
