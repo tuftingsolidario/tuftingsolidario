@@ -5,38 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opiniones y Experiencias | EcoLegado Alfombras</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f9f4; color: #333; margin: 0; padding: 20px; text-align: center; }
-        header { background: #2c5e3b; color: white; padding: 20px; border-radius: 8px; }
-        .grid-resenas { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 30px auto; }
-        .tarjeta-resena { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.08); text-align: left; }
-        .tarjeta-resena img { width: 100%; height: 200px; object-fit: cover; border-radius: 6px; margin-top: 10px; }
+        :root {
+            --primary-color: #2c5e3b;
+            --secondary-color: #52b788;
+            --bg-color: #f4f9f4;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #d8f3dc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c5e3b, #1e3d28);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 0.8rem 0 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .btn-volver {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn-volver:hover {
+            background-color: #40916c;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .grid-resenas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .tarjeta-resena {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            text-align: left;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tarjeta-resena:hover {
+            transform: translateY(-6px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+
+        .tarjeta-resena h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .tarjeta-resena p {
+            line-height: 1.6;
+            margin: 0.5rem 0;
+        }
+
+        .tarjeta-resena img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .mensaje-estado {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            padding: 3rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: #1e3d28;
+            color: white;
+            margin-top: 4rem;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Opiniones de Nuestra Comunidad</h1>
-        <p>Alfombras ecológicas que transforman hogares.</p>
-        <p><a href="index.html" style="color: #fff;">Volver al Inicio</a></p>
+        <p>Descubre lo que dicen quienes ya transformaron sus hogares con arte y conciencia ecológica.</p>
+        <a href="index.html" class="btn-volver">← Volver al Inicio</a>
     </header>
 
     <main>
         <section id="listaResenas" class="grid-resenas">
-            <p style="grid-column: 1/-1;">Cargando opiniones...</p>
+            <div class="mensaje-estado">Cargando todas las opiniones... 🌱</div>
         </section>
     </main>
 
+    <footer>
+        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
+    </footer>
+
+    <!-- Script para conectar a Firebase y renderizar todas las reseñas -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
+            apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
             authDomain: "ecolegado-21e65.firebaseapp.com",
+            databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
             projectId: "ecolegado-21e65",
-            storageBucket: "ecolegado-21e65.appspot.com",
-            messagingSenderId: "TU_MESSAGING_SENDER_ID",
-            appId: "TU_APP_ID"
+            storageBucket: "ecolegado-21e65.firebasestorage.app",
+            messagingSenderId: "678783567354",
+            appId: "1:678783567354:web:657139d7917401b745d043",
+            measurementId: "G-MJ78QZDTHJ"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -46,31 +167,35 @@
             const contenedor = document.getElementById('listaResenas');
             try {
                 const querySnapshot = await getDocs(collection(db, "resenas"));
+                
                 if (querySnapshot.empty) {
-                    contenedor.innerHTML = "<p>Aún no hay reseñas registradas.</p>";
+                    contenedor.innerHTML = `<div class="mensaje-estado">Aún no hay reseñas registradas en la base de datos. ¡Sé el primero en dejarnos una!</div>`;
                     return;
                 }
 
                 contenedor.innerHTML = "";
+                
+                // Recorre y muestra TODOS los documentos encontrados en la colección
                 querySnapshot.forEach((doc) => {
                     const r = doc.data();
                     contenedor.innerHTML += `
                         <div class="tarjeta-resena">
-                            <h3>${r.cliente}</h3>
-                            <p style="color: #f39c12;">★★★★★</p>
-                            <p>"${r.comentario}"</p>
-                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente}">` : ''}
+                            <div>
+                                <h3>${r.cliente || 'Cliente Anónimo'}</h3>
+                                <p style="color: #f39c12; font-size: 1.1rem; margin-bottom: 0.8rem;">★★★★★</p>
+                                <p>"${r.comentario || 'Excelente calidad y servicio.'}"</p>
+                            </div>
+                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente || 'Cliente'}">` : ''}
                         </div>
                     `;
                 });
             } catch (error) {
                 console.error("Error al cargar opiniones:", error);
-                contenedor.innerHTML = "<p>Ocurrió un error al cargar las reseñas.</p>";
+                contenedor.innerHTML = `<div class="mensaje-estado">Ocurrió un error al cargar las reseñas. Por favor, intenta recargar la página.</div>`;
             }
         }
 
         cargarTodasLasResenas();
     </script>
-
 </body>
 </html>
