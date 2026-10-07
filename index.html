@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoLegado Alfombras | Tu hogar, tu huella, tu legado</title>
+    <!-- Carga opcional de reCAPTCHA Enterprise si usas App Check en la página principal -->
+    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
     <style>
         /* Variables Globales (Modo Claro / Clásico) */
         :root { 
@@ -60,10 +62,11 @@
         .card:hover { transform: translateY(-5px); border-color: var(--secondary-color); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
         .card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.5rem; }
         
-        /* Testimonios Específico */
-        .testimonio-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem; }
+        /* Testimonios Específico Dinámico */
+        .testimonio-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-top: 1rem; margin-bottom: 1rem; }
         .estrellas { color: #ffd166; font-size: 1.2rem; margin-bottom: 0.5rem; }
         .cliente-info { font-style: italic; color: var(--secondary-color); margin-top: 1rem; }
+        .ver-todas-container { text-align: center; margin-top: -2rem; margin-bottom: 3rem; }
 
         footer { text-align: center; padding: 3rem 1rem; background: #1e3d28; color: white; }
 
@@ -79,38 +82,35 @@
     </header>
 
     <nav>
-        <a href="#como-funciona">Cómo Funciona</a>
         <a href="#testimonios">Testimonios</a>
+        <a href="#precios">Precios</a>
         <a href="arboles.html">Bosque Virtual</a>
+        <a href="resenas.html">Todas las Opiniones</a>
         <button id="btnTema" class="btn-tema">🌙 Modo Nocturno</button>
     </nav>
 
     <main class="container">
-        <!-- Las secciones tienen la clase "oculto" para ser animadas con JS -->
+        <!-- Sección Hero -->
         <section class="hero oculto">
             <h2>Arte, Confort y Vida para el Planeta</h2>
             <p>Creamos alfombras únicas mediante la técnica de tufting. Por cada compra, sembramos y cuidamos un árbol asignado a tu nombre en nuestro bosque protegido.</p>
-            <a href="index.html" class="btn">Solicitar Cotización 🌱</a>
+            <a href="#precios" class="btn">Solicitar Cotización 🌱</a>
         </section>
 
+        <!-- Sección de Testimonios Dinámicos Aleatorios -->
         <section id="testimonios" class="oculto">
             <h2 class="seccion-titulo">El Impacto de Nuestros Clientes</h2>
-            <div class="grid-cards">
+            <div id="contenedorAleatorio" class="grid-cards">
                 <div class="card">
-                    <div class="estrellas">★★★★★</div>
-                    <p>"La alfombra quedó perfecta en mi sala, súper suave. Pero lo que más me emocionó fue entrar al Bosque Virtual y ver la foto del Roble que plantaron a nombre de mis hijos."</p>
-                    <img src="https://images.unsplash.com/photo-1600166898405-da9535204843?auto=format&fit=crop&w=400&q=80" alt="Alfombra en sala" class="testimonio-img">
-                    <p class="cliente-info">- María Fernanda R. (Protectora de ECO-001)</p>
+                    <p>Cargando experiencias del bosque...</p>
                 </div>
-                <div class="card">
-                    <div class="estrellas">★★★★★</div>
-                    <p>"Un trabajo artesanal impecable y una causa hermosa. Saber que mi compra ayudó a reforestar me hace recomendar EcoLegado a todos mis amigos."</p>
-                    <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=400&q=80" alt="Árbol plantado" class="testimonio-img">
-                    <p class="cliente-info">- Carlos P. (Protector de ECO-003)</p>
-                </div>
+            </div>
+            <div class="ver-todas-container">
+                <a href="resenas.html" class="btn" style="background-color: var(--secondary-color);">Ver Todas las Opiniones 🌟</a>
             </div>
         </section>
 
+        <!-- Sección de Precios -->
         <section id="precios" class="oculto">
             <h2 class="seccion-titulo">Precios Aproximados</h2>
             <div class="grid-cards">
@@ -137,6 +137,66 @@
         <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
     </footer>
 
+    <!-- Scripts de Firebase y Lógica General -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Configuración de tu Firebase
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "ecolegado-21e65.firebaseapp.com",
+            projectId: "ecolegado-21e65",
+            storageBucket: "ecolegado-21e65.appspot.com",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Función para cargar 2 reseñas aleatorias en el inicio
+        async function cargarResenasAleatorias() {
+            const contenedor = document.getElementById('contenedorAleatorio');
+            try {
+                const querySnapshot = await getDocs(collection(db, "resenas"));
+                let resenas = [];
+                
+                querySnapshot.forEach((doc) => {
+                    resenas.push(doc.data());
+                });
+
+                if (resenas.length === 0) {
+                    contenedor.innerHTML = `<div class="card"><p>Aún no hay reseñas registradas en el sistema.</p></div>`;
+                    return;
+                }
+
+                // Mezclar aleatoriamente el arreglo
+                resenas.sort(() => Math.random() - 0.5);
+
+                // Tomar máximo 2 reseñas
+                const seleccionadas = resenas.slice(0, 2);
+                contenedor.innerHTML = "";
+
+                seleccionadas.forEach(r => {
+                    contenedor.innerHTML += `
+                        <div class="card">
+                            <div class="estrellas">★★★★★</div>
+                            <p>"${r.comentario}"</p>
+                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente}" class="testimonio-img">` : ''}
+                            <p class="cliente-info">- ${r.cliente}</p>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error al cargar reseñas aleatorias:", error);
+                contenedor.innerHTML = `<div class="card"><p>No se pudieron cargar los testimonios en este momento.</p></div>`;
+            }
+        }
+
+        cargarResenasAleatorias();
+    </script>
+
     <script>
         // 1. Lógica del Modo Oscuro / Orgánico
         const btnTema = document.getElementById('btnTema');
@@ -155,16 +215,14 @@
         // 2. Animaciones de Desplazamiento (Scroll) usando IntersectionObserver
         const observer = new IntersectionObserver((entradas) => {
             entradas.forEach(entrada => {
-                // Si el elemento entra en la ventana gráfica
                 if (entrada.isIntersecting) {
                     entrada.target.classList.add('mostrar');
                 }
             });
         }, {
-            threshold: 0.1 // Se activa cuando el 10% del elemento es visible
+            threshold: 0.1 
         });
 
-        // Seleccionamos todos los elementos ocultos y los observamos
         const elementosOcultos = document.querySelectorAll('.oculto');
         elementosOcultos.forEach((el) => observer.observe(el));
     </script>
