@@ -137,10 +137,10 @@
         <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
     </footer>
 
-    <!-- Scripts de Firebase y Lógica para Cargar Reseñas Destacadas -->
+    <!-- Scripts de Firebase y Lógica para Cargar Reseñas Destacadas de forma segura -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, where, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
@@ -151,7 +151,7 @@
             messagingSenderId: "678783567354",
             appId: "1:678783567354:web:657139d7917401b745d043",
             measurementId: "G-MJ78QZDTHJ"
-            };
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -159,18 +159,25 @@
         async function cargarResenasDestacadas() {
             const contenedor = document.getElementById('contenedorDestacadas');
             try {
-                // Consultamos únicamente las reseñas que tengan el campo destacado == true
-                const q = query(collection(db, "resenas"), where("destacado", "==", true), limit(2));
-                const querySnapshot = await getDocs(q);
+                const querySnapshot = await getDocs(collection(db, "resenas"));
+                let destacadas = [];
 
-                if (querySnapshot.empty) {
-                    contenedor.innerHTML = `<div class="card"><p>Configura dos reseñas como destacadas en tu consola de Firebase para mostrarlas aquí.</p></div>`;
+                querySnapshot.forEach((doc) => {
+                    const r = doc.data();
+                    if (r.destacado === true) {
+                        destacadas.push(r);
+                    }
+                });
+
+                if (destacadas.length === 0) {
+                    contenedor.innerHTML = `<div class="card"><p>Configura al menos dos reseñas con el campo <strong>destacado: true</strong> en tu consola de Firebase.</p></div>`;
                     return;
                 }
 
+                const seleccionadas = destacadas.slice(0, 2);
                 contenedor.innerHTML = "";
-                querySnapshot.forEach((doc) => {
-                    const r = doc.data();
+
+                seleccionadas.forEach(r => {
                     contenedor.innerHTML += `
                         <div class="card">
                             <div class="estrellas">★★★★★</div>
