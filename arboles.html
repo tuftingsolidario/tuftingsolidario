@@ -7,24 +7,170 @@
     <!-- Carga de reCAPTCHA Enterprise para App Check -->
     <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
     <style>
-        :root { --primary: #2c5e3b; --secondary: #4CAF50; --bg: #f4f9f4; --text: #333; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; text-align: center; }
-        header { background: var(--primary); color: white; padding: 30px 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        header h1 { margin: 0 0 10px; font-size: 2rem; }
-        .buscador { margin: 40px 0; display: flex; justify-content: center; gap: 10px; }
-        input { padding: 12px; width: 60%; max-width: 320px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; outline: none; }
-        input:focus { border-color: var(--secondary); box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
-        button { padding: 12px 24px; background-color: var(--secondary); color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
-        button:hover { background-color: #388E3C; }
-        .tarjeta-arbol { background: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; box-shadow: 0 6px 15px rgba(0,0,0,0.08); text-align: left; }
-        .tarjeta-arbol h2 { color: var(--primary); margin-top: 0; text-align: center; }
-        .tarjeta-arbol p { margin: 8px 0; font-size: 1.05rem; }
-        
-        /* Contenedor de la galería de crecimiento */
-        .galeria-crecimiento { display: flex; gap: 10px; overflow-x: auto; margin-top: 15px; padding-bottom: 5px; }
-        .galeria-crecimiento img { width: 100%; max-width: 210px; height: 180px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); border: 2px solid #e0e0e0; flex-shrink: 0; }
-        
-        .mensaje-estado { font-weight: bold; color: #666; margin-top: 20px; }
+        :root {
+            --primary: #2c5e3b;
+            --secondary: #52b788;
+            --bg: #f4f9f4;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --border-color: #d8f3dc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c5e3b, #1e3d28);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        header p {
+            margin: 0.8rem 0 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .btn-inicio {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .btn-inicio:hover {
+            background-color: #40916c;
+            transform: translateY(-2px);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .buscador {
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        input {
+            padding: 12px 16px;
+            width: 60%;
+            max-width: 350px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            background: white;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 8px rgba(82, 183, 136, 0.3);
+        }
+
+        button.btn-buscar {
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button.btn-buscar:hover {
+            background-color: var(--secondary);
+            transform: translateY(-1px);
+        }
+
+        .tarjeta-arbol {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            text-align: left;
+            margin-top: 1rem;
+        }
+
+        .tarjeta-arbol h2 {
+            color: var(--primary);
+            margin-top: 0;
+            text-align: center;
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.8rem;
+        }
+
+        .tarjeta-arbol p {
+            margin: 12px 0;
+            font-size: 1.1rem;
+        }
+
+        /* Galería de crecimiento mejorada */
+        .galeria-crecimiento {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            margin-top: 20px;
+            padding-bottom: 10px;
+        }
+
+        .galeria-crecimiento img {
+            width: 100%;
+            max-width: 220px;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+
+        .galeria-crecimiento img:hover {
+            transform: scale(1.03);
+        }
+
+        .mensaje-estado {
+            font-weight: 500;
+            color: #555;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: #1e3d28;
+            color: white;
+            margin-top: 5rem;
+        }
     </style>
 </head>
 <body>
@@ -32,19 +178,25 @@
     <header>
         <h1>El Bosque de los Legados</h1>
         <p>Tu hogar, tu huella, tu legado. Cada alfombra siembra vida eterna.</p>
+        <a href="index.html" class="btn-inicio">← Volver al Inicio</a>
     </header>
 
     <main>
         <section class="buscador">
             <input type="text" id="searchInput" placeholder="Ingresa tu código (ej. ECO-002)" onkeypress="if(event.key === 'Enter') buscarArbol()">
-            <button onclick="buscarArbol()">Buscar 🌳</button>
+            <button class="btn-buscar" onclick="buscarArbol()">Buscar 🌳</button>
         </section>
 
         <section id="resultadoArbol" class="tarjeta-arbol" style="display: none;">
             <!-- Contenido dinámico -->
         </section>
-        <div id="estadoBusqueda" class="mensaje-estado">Ingresa tu código único para conocer la evolución y crecimiento de tu árbol protector.</div>
+
+        <div id="estadoBusqueda" class="mensaje-estado">Ingresa tu código único para conocer la evolución y el crecimiento de tu árbol protector.</div>
     </main>
+
+    <footer>
+        <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
+    </footer>
 
     <!-- Script de Firebase y lógica para galería de crecimiento -->
     <script type="module">
@@ -61,7 +213,7 @@
             messagingSenderId: "678783567354",
             appId: "1:678783567354:web:657139d7917401b745d043",
             measurementId: "G-MJ78QZDTHJ"
-            };
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -79,7 +231,7 @@
             const codigoBuscado = document.getElementById('searchInput').value.trim();
             const contenedor = document.getElementById('resultadoArbol');
             const estado = document.getElementById('estadoBusqueda');
-            
+
             if (!codigoBuscado) {
                 estado.innerHTML = "<span style='color: #d9534f;'>Por favor, escribe un código válido.</span>";
                 contenedor.style.display = "none";
@@ -100,9 +252,8 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    
-                    // Generar dinámicamente las etiquetas de imagen según el array guardado en Firestore
                     let imagenesHTML = '';
+                    
                     if (data.imagenes && Array.isArray(data.imagenes)) {
                         data.imagenes.forEach((urlImg, index) => {
                             imagenesHTML += `<img src="${urlImg}" alt="Crecimiento ${index + 1} de ${data.protector}">`;
@@ -110,10 +261,10 @@
                     }
 
                     contenedor.innerHTML = `
-                        <h2>🌿 ${data.especie}</h2>
-                        <p><strong>Protector/a:</strong> ${data.protector}</p>
+                        <h2>🌿 ${data.especie || 'Árbol Protegido'}</h2>
+                        <p><strong>Protector/a:</strong> ${data.protector || 'Anónimo'}</p>
                         <p><strong>Código Único:</strong> ${data.codigo}</p>
-                        <p><strong>Evolución del Crecimiento:</strong></p>
+                        <p style="margin-top: 1.5rem;"><strong>Evolución del Crecimiento:</strong></p>
                         <div class="galeria-crecimiento">
                             ${imagenesHTML}
                         </div>
@@ -127,6 +278,5 @@
             }
         }
     </script>
-
 </body>
 </html>
