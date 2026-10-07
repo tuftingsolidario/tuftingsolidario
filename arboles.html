@@ -16,10 +16,14 @@
         input:focus { border-color: var(--secondary); box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
         button { padding: 12px 24px; background-color: var(--secondary); color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
         button:hover { background-color: #388E3C; }
-        .tarjeta-arbol { background: white; padding: 25px; border-radius: 12px; max-width: 450px; margin: 0 auto; box-shadow: 0 6px 15px rgba(0,0,0,0.08); text-align: left; }
+        .tarjeta-arbol { background: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; box-shadow: 0 6px 15px rgba(0,0,0,0.08); text-align: left; }
         .tarjeta-arbol h2 { color: var(--primary); margin-top: 0; text-align: center; }
         .tarjeta-arbol p { margin: 8px 0; font-size: 1.05rem; }
-        .tarjeta-arbol img { width: 100%; height: 280px; object-fit: cover; border-radius: 8px; margin-top: 15px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        
+        /* Contenedor de la galería de crecimiento */
+        .galeria-crecimiento { display: flex; gap: 10px; overflow-x: auto; margin-top: 15px; padding-bottom: 5px; }
+        .galeria-crecimiento img { width: 100%; max-width: 210px; height: 180px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); border: 2px solid #e0e0e0; flex-shrink: 0; }
+        
         .mensaje-estado { font-weight: bold; color: #666; margin-top: 20px; }
     </style>
 </head>
@@ -32,23 +36,22 @@
 
     <main>
         <section class="buscador">
-            <input type="text" id="searchInput" placeholder="Ingresa tu código (ej. ECO-999)" onkeypress="if(event.key === 'Enter') buscarArbol()">
+            <input type="text" id="searchInput" placeholder="Ingresa tu código (ej. ECO-002)" onkeypress="if(event.key === 'Enter') buscarArbol()">
             <button onclick="buscarArbol()">Buscar 🌳</button>
         </section>
 
         <section id="resultadoArbol" class="tarjeta-arbol" style="display: none;">
             <!-- Contenido dinámico -->
         </section>
-        <div id="estadoBusqueda" class="mensaje-estado">Ingresa tu código único para conocer la historia de tu árbol protector.</div>
+        <div id="estadoBusqueda" class="mensaje-estado">Ingresa tu código único para conocer la evolución y crecimiento de tu árbol protector.</div>
     </main>
 
-    <!-- Script de Firebase y lógica de búsqueda optimizada -->
+    <!-- Script de Firebase y lógica para galería de crecimiento -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
         import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-check.js";
 
-        // Tus credenciales oficiales de Firebase
         const firebaseConfig = {
             apiKey: "TU_API_KEY",
             authDomain: "ecolegado-21e65.firebaseapp.com",
@@ -61,7 +64,6 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Inicialización de App Check con reCAPTCHA Enterprise
         try {
             initializeAppCheck(app, {
                 provider: new ReCaptchaEnterpriseProvider('6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g'),
@@ -82,7 +84,7 @@
                 return;
             }
 
-            estado.textContent = "Buscando en el bosque virtual...";
+            estado.textContent = "Buscando la evolución en el bosque virtual...";
             contenedor.style.display = "none";
 
             try {
@@ -96,12 +98,23 @@
 
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
+                    
+                    // Generar dinámicamente las etiquetas de imagen según el array guardado en Firestore
+                    let imagenesHTML = '';
+                    if (data.imagenes && Array.isArray(data.imagenes)) {
+                        data.imagenes.forEach((urlImg, index) => {
+                            imagenesHTML += `<img src="${urlImg}" alt="Crecimiento ${index + 1} de ${data.protector}">`;
+                        });
+                    }
+
                     contenedor.innerHTML = `
                         <h2>🌿 ${data.especie}</h2>
                         <p><strong>Protector/a:</strong> ${data.protector}</p>
                         <p><strong>Código Único:</strong> ${data.codigo}</p>
-                        <p><strong>Impacto:</strong> Árbol adoptado de por vida con amor.</p>
-                        <img src="${data.imagenUrl}" alt="Árbol de ${data.protector}">
+                        <p><strong>Evolución del Crecimiento:</strong></p>
+                        <div class="galeria-crecimiento">
+                            ${imagenesHTML}
+                        </div>
                     `;
                     contenedor.style.display = "block";
                     estado.textContent = "";
