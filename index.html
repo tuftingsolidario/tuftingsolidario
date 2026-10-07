@@ -8,12 +8,12 @@
     <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfWWOMtAAAAAG-5zjE4hywzDE1Qtfbz1AuRd30g"></script>
     <style>
         /* Variables Globales (Modo Claro / Clásico) */
-        :root { 
-            --primary-color: #2c5e3b; 
-            --secondary-color: #52b788; 
-            --bg-color: #fefae0; 
-            --card-bg: #ffffff; 
-            --text-color: #333333; 
+        :root {
+            --primary-color: #2c5e3b;
+            --secondary-color: #52b788;
+            --bg-color: #fefae0;
+            --card-bg: #ffffff;
+            --text-color: #333333;
             --border-color: #d8f3dc;
         }
 
@@ -27,55 +27,189 @@
             --border-color: #1b4332;
         }
 
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; padding: 0; 
-            background-color: var(--bg-color); 
-            color: var(--text-color); 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        header { background-color: var(--primary-color); color: white; padding: 2.5rem 1rem; text-align: center; transition: background-color 0.5s; }
-        header h1 { margin: 0; font-size: 2.2rem; }
-        header p { margin: 0.5rem 0 0; font-size: 1.1rem; }
-        
-        nav { display: flex; justify-content: center; align-items: center; gap: 1.5rem; background: #23492e; padding: 1rem; flex-wrap: wrap; }
-        nav a { color: white; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-        nav a:hover { color: var(--secondary-color); }
-        
-        .btn-tema { background: transparent; border: 1px solid white; color: white; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .btn-tema:hover { background: white; color: #23492e; }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
-        
-        .hero { text-align: center; padding: 3rem 1rem; background: linear-gradient(rgba(44, 94, 59, 0.05), rgba(44, 94, 59, 0.1)); border-radius: 12px; margin-bottom: 3rem; }
-        .hero h2 { color: var(--primary-color); font-size: 2rem; margin-top: 0; }
-        
-        .btn { background-color: var(--primary-color); color: white; padding: 0.8rem 1.8rem; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: background 0.3s, transform 0.2s; border: none;}
-        .btn:hover { background-color: var(--secondary-color); transform: translateY(-2px); }
-        
-        .seccion-titulo { text-align: center; color: var(--primary-color); margin-bottom: 2rem; font-size: 2rem; }
-        
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.1rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            background: #23492e;
+            padding: 1rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        .btn-tema {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-tema:hover {
+            background: white;
+            color: #23492e;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(rgba(44, 94, 59, 0.05), rgba(44, 94, 59, 0.1));
+            border-radius: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .hero h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-top: 0;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .seccion-titulo {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
         /* Estilos Tarjetas (Precios y Testimonios) */
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 4rem; }
-        .card { background: var(--card-bg); border-radius: 12px; padding: 2rem; border: 2px solid var(--border-color); text-align: center; transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: var(--secondary-color); box-shadow: 0 8px 15px rgba(0,0,0,0.1); }
-        .card h3 { color: var(--primary-color); margin-top: 0; font-size: 1.5rem; }
-        
-        /* Testimonios Específico Destacados */
-        .testimonio-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-top: 1rem; margin-bottom: 1rem; }
-        .estrellas { color: #ffd166; font-size: 1.2rem; margin-bottom: 0.5rem; }
-        .cliente-info { font-style: italic; color: var(--secondary-color); margin-top: 1rem; }
-        .ver-todas-container { text-align: center; margin-top: -2rem; margin-bottom: 3rem; }
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
 
-        footer { text-align: center; padding: 3rem 1rem; background: #1e3d28; color: white; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 2px solid var(--border-color);
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--secondary-color);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        /* Testimonios Específicos Destacados */
+        .testimonio-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .cliente-info {
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        .ver-todas-container {
+            text-align: center;
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: #1e3d28;
+            color: white;
+        }
 
         /* Clases para Animaciones de Scroll */
-        .oculto { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .mostrar { opacity: 1; transform: translateY(0); }
+        .oculto {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .mostrar {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body data-theme="light">
+
     <header>
         <h1>EcoLegado Alfombras</h1>
         <p>Tu hogar, tu huella, tu legado</p>
@@ -97,7 +231,7 @@
             <a href="#precios" class="btn">Solicitar Cotización 🌱</a>
         </section>
 
-        <!-- Sección de Testimonios Destacados por Ti -->
+        <!-- Sección de Testimonios Destacados -->
         <section id="testimonios" class="oculto">
             <h2 class="seccion-titulo">El Impacto de Nuestros Clientes</h2>
             <div id="contenedorDestacadas" class="grid-cards">
@@ -137,7 +271,7 @@
         <p>&copy; 2026 EcoLegado Alfombras. Cuidando el planeta, un hogar a la vez.</p>
     </footer>
 
-    <!-- Scripts de Firebase y Lógica para Cargar Reseñas Destacadas de forma segura -->
+    <!-- Scripts de Firebase y Lógica para Cargar exactamente 2 Reseñas Destacadas -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -161,7 +295,7 @@
             try {
                 const querySnapshot = await getDocs(collection(db, "resenas"));
                 let destacadas = [];
-
+                
                 querySnapshot.forEach((doc) => {
                     const r = doc.data();
                     if (r.destacado === true) {
@@ -174,16 +308,16 @@
                     return;
                 }
 
+                // Forzamos a mostrar máximo 2 reseñas destacadas
                 const seleccionadas = destacadas.slice(0, 2);
                 contenedor.innerHTML = "";
-
+                
                 seleccionadas.forEach(r => {
                     contenedor.innerHTML += `
                         <div class="card">
-                            <div class="estrellas">★★★★★</div>
-                            <p>"${r.comentario}"</p>
-                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente}" class="testimonio-img">` : ''}
-                            <p class="cliente-info">- ${r.cliente}</p>
+                            <p>"${r.comentario || 'Excelente servicio'}"</p>
+                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente || 'Cliente'}" class="testimonio-img">` : ''}
+                            <p class="cliente-info">- ${r.cliente || 'Cliente Anónimo'}</p>
                         </div>
                     `;
                 });
@@ -218,9 +352,7 @@
                     entrada.target.classList.add('mostrar');
                 }
             });
-        }, {
-            threshold: 0.1 
-        });
+        }, { threshold: 0.1 });
 
         const elementosOcultos = document.querySelectorAll('.oculto');
         elementosOcultos.forEach((el) => observer.observe(el));
