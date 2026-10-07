@@ -53,13 +53,15 @@
         import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-check.js";
 
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
+            apiKey: "AIzaSyDt8rNOONVBbJUIXT0MYHAHm6bbV9sZ1mk",
             authDomain: "ecolegado-21e65.firebaseapp.com",
+            databaseURL: "https://ecolegado-21e65-default-rtdb.firebaseio.com",
             projectId: "ecolegado-21e65",
-            storageBucket: "ecolegado-21e65.appspot.com",
-            messagingSenderId: "TU_MESSAGING_SENDER_ID",
-            appId: "TU_APP_ID"
-        };
+            storageBucket: "ecolegado-21e65.firebasestorage.app",
+            messagingSenderId: "678783567354",
+            appId: "1:678783567354:web:657139d7917401b745d043",
+            measurementId: "G-MJ78QZDTHJ"
+            };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
