@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opiniones y Experiencias | EcoLegado Alfombras</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f9f4; color: #333; margin: 0; padding: 20px; text-align: center; }
+        header { background: #2c5e3b; color: white; padding: 20px; border-radius: 8px; }
+        .grid-resenas { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 30px auto; }
+        .tarjeta-resena { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.08); text-align: left; }
+        .tarjeta-resena img { width: 100%; height: 200px; object-fit: cover; border-radius: 6px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Opiniones de Nuestra Comunidad</h1>
+        <p>Alfombras ecológicas que transforman hogares.</p>
+        <p><a href="index.html" style="color: #fff;">Volver al Inicio</a></p>
+    </header>
+
+    <main>
+        <section id="listaResenas" class="grid-resenas">
+            <p style="grid-column: 1/-1;">Cargando opiniones...</p>
+        </section>
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "ecolegado-21e65.firebaseapp.com",
+            projectId: "ecolegado-21e65",
+            storageBucket: "ecolegado-21e65.appspot.com",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function cargarTodasLasResenas() {
+            const contenedor = document.getElementById('listaResenas');
+            try {
+                const querySnapshot = await getDocs(collection(db, "resenas"));
+                if (querySnapshot.empty) {
+                    contenedor.innerHTML = "<p>Aún no hay reseñas registradas.</p>";
+                    return;
+                }
+
+                contenedor.innerHTML = "";
+                querySnapshot.forEach((doc) => {
+                    const r = doc.data();
+                    contenedor.innerHTML += `
+                        <div class="tarjeta-resena">
+                            <h3>${r.cliente}</h3>
+                            <p style="color: #f39c12;">★★★★★</p>
+                            <p>"${r.comentario}"</p>
+                            ${r.imagenUrl ? `<img src="${r.imagenUrl}" alt="Alfombra de ${r.cliente}">` : ''}
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error al cargar opiniones:", error);
+                contenedor.innerHTML = "<p>Ocurrió un error al cargar las reseñas.</p>";
+            }
+        }
+
+        cargarTodasLasResenas();
+    </script>
+
+</body>
+</html>
